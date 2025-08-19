@@ -1,11 +1,15 @@
+// backend/src/config/db.js
 import mongoose from "mongoose";
 
 export const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("MONGODB CONNECTED SUCCESSFULLY!");
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("MongoDB Connected");
   } catch (error) {
-    console.error("Error connecting to MONGODB", error);
-    process.exit(1); // exit with failure
+    console.error("MongoDB connection failed:", error.message);
+    process.exit(1);
   }
 };
